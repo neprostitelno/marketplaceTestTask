@@ -17,7 +17,7 @@ const Cart = () => {
     const money = useSelector((state: RootState) => state.money);
     const [mainValute, setValute] = useState('')
     const [result, setResult] = useState(false)
-    const cartLength = Object.keys(cart.cart).length
+    const cartLength = Object.keys(cart).length
 
     function addProduct(cart: object) {
         dispatch(addToCart(cart))
@@ -52,7 +52,7 @@ const Cart = () => {
 
     useEffect(() => {
         let total = 0
-        for (let i of Object.values(cart.cart)) {
+        for (let i of Object.values(cart)) {
             total += i.price * i.quantity
         }
         setTotal(total)
@@ -74,7 +74,7 @@ const Cart = () => {
                     </th>
                 </tr>
 
-                {Object.entries(cartProduct).map(([key, value]) => <tr key={key}>
+                {Object.entries(cart).map(([key, value]) => <tr key={key}>
                         <td>{value.title}</td>
                         <td className={style.displayButton}>
                             <button className={style.addDelete} onClick={() => addProduct(value)}>+</button>
