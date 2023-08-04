@@ -17,6 +17,11 @@ stack: Next(12 версия), Axios, React Query, redux-toolkit или zustend, 
 
 Для установки пакетов используемых в приложении используйте команду:
 
+```
+npm install
+```
+Для запуска приложения используйте команду:
+
 ```bash
 npm run dev
 # or
