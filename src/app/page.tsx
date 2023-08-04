@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import type {RootState} from "@/app/redux/store";
 import React, {useEffect, useState} from "react";
 import style from './page.module.scss'
-import {addToCart, clearCart, initialState, removeItem} from "@/app/redux/features/cartSlice";
+import {addToCart, initialState, removeItem} from "@/app/redux/features/cartSlice";
 import useLocalStorageState from 'use-local-storage-state'
 
 export default function Products() {
