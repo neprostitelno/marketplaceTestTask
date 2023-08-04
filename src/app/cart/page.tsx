@@ -52,11 +52,11 @@ const Cart = () => {
 
     useEffect(() => {
         let total = 0
-        for (let i of Object.values(cartProduct)) {
+        for (let i of Object.values(cart.cart)) {
             total += i.price * i.quantity
         }
         setTotal(total)
-    }, [cartProduct])
+    }, [cart])
 
     return <div> {cartLength ?
         <div className={style.cart}>
