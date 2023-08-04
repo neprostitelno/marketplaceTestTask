@@ -31,13 +31,13 @@ const Cart = () => {
         setValute(valute)
     }
 
-    function payCoins(total) {
+    function payCoins(total: number) {
         dispatch(setPayCoins(total))
         setResult(true)
         dispatch(clearCart())
     }
 
-    function payDollars(total) {
+    function payDollars(total: number) {
         dispatch(setPayDollars(total))
 
         dispatch(clearCart())
