@@ -14,10 +14,10 @@ const Cart = () => {
     const [cartProduct, setCart] = useLocalStorageState<initialState>('cartProduct', {})
     const cart = useSelector((state: RootState) => state.cart);
     const [total, setTotal] = useState(0)
-    const {coins, dollars} = useSelector((state: RootState) => state.money);
+    const money = useSelector((state: RootState) => state.money);
     const [mainValute, setValute] = useState('')
     const [result, setResult] = useState(false)
-    const cartLength = Object.keys(cartProduct).length
+    const cartLength = Object.keys(cart.cart).length
 
     function addProduct(cart) {
         dispatch(addToCart(cart))
@@ -110,7 +110,7 @@ const Cart = () => {
                                 </div>
                             </form>
                             {mainValute === 'coins' ? <>{
-                                    coins <= total ?
+                                    money.coins <= total ?
                                         <h3 className={style.textMessage}>You do not have enough funds to pay for the
                                             purchase.
                                             You can convert currency in "Conversion" tab.</h3> : <div>
@@ -118,7 +118,7 @@ const Cart = () => {
                                         </div>
                                 }</> :
                                 <>{
-                                    dollars <= total ?
+                                    money.dollars <= total ?
                                         <h3 className={style.textMessage}>You do not have enough funds to pay for the
                                             purchase.
                                             You can convert currency in "Conversion" tab.</h3> : <div>
