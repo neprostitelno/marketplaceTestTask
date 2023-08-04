@@ -19,11 +19,11 @@ const Cart = () => {
     const [result, setResult] = useState(false)
     const cartLength = Object.keys(cart.cart).length
 
-    function addProduct(cart) {
+    function addProduct(cart: object) {
         dispatch(addToCart(cart))
     }
 
-    function deleteProduct(cart) {
+    function deleteProduct(cart: object) {
         dispatch(removeItem(cart))
     }
 
