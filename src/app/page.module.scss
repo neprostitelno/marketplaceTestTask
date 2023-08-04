@@ -1,0 +1,23 @@
+.products{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
+  color: #C8A2C8;
+}
+.aProduct{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.aProduct:hover{
+  box-shadow: 1px 1px 15px  #C8A2C8;
+}
+.data{
+  margin: 10px 10px;
+}
+.buttonProduct{
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+}

@@ -1,95 +1,77 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"
+import axios from 'axios';
+import {getProducts, setCurrentPage, setFetching, setTotalCount} from '@/app/redux/features/productsSlice'
+import {useDispatch, useSelector} from "react-redux";
+import type {RootState} from "@/app/redux/store";
+import React, {useEffect, useState} from "react";
+import style from './page.module.scss'
+import {addToCart, clearCart, initialState, removeItem} from "@/app/redux/features/cartSlice";
+import useLocalStorageState from 'use-local-storage-state'
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+export default function Products() {
+    const dispatch = useDispatch()
+    const {value} = useSelector((state: RootState) => state.products);
+    const cart = useSelector((state: RootState) => state.cart);
+    const [cartProduct, setCart] = useLocalStorageState<initialState>('cartProduct', {})
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    useEffect(() => {
+        if (value.fetching) {
+            const product = async () => {
+                try {
+                    const res = await axios.get(`https://dummyjson.com/products?limit=30&skip=${value.currentPage}`)
+                    dispatch(getProducts(res.data.products))
+                    dispatch(setTotalCount(res.data.total))
+                    dispatch(setCurrentPage())
+                    dispatch(setFetching(false))
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+            product()
+        }
+    }, [value.fetching])
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+    React.useEffect(() => {
+        document.addEventListener('scroll', scrollHandler)
+        return function () {
+            document.removeEventListener('scroll', scrollHandler)
+        }
+    }, [])
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+    const scrollHandler = (e) => {
+        if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100
+            && value.products.length <= value.totalCount) {
+            dispatch(setFetching(true))
+        }
+    }
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    function addProduct(cart) {
+        dispatch(addToCart(cart))
+
+    }
+
+    function deleteProduct(cart) {
+        dispatch(removeItem(cart))
+    }
+
+    useEffect(() => {
+        setCart(cart)
+    }, [cart, setCart])
+
+    return <div className={style.products}>
+        {value.products.map((p, index) => <div key={index} className={style.aProduct}>
+            <img alt={p.title} src={p.images[0]}/>
+                <div className={style.data}>
+                    <div>{p.title}</div>
+                    <div>Price: {p.price}</div>
+                </div>
+                <div>
+                    <button className={style.buttonProduct} onClick={() => addProduct(p)}>+</button>
+                    {cart[p.id] ? cart[p.id].quantity : 0}
+                    <button className={style.buttonProduct}  disabled={!cart[p.id]} onClick={() => deleteProduct(p)}>-</button>
+                </div>
+        </div>)
+        }
+    </div>
 }

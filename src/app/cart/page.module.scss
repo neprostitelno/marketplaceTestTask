@@ -1,0 +1,91 @@
+.cart {
+  color: #C8A2C8;
+  font-size: 18px;
+}
+
+.tableCart {
+  border: 1px solid #C8A2C8;
+  border-radius: 10px;
+  margin: 0 auto;
+
+  td {
+    padding: 10px 100px;
+
+    button {
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+  }
+}
+
+.addDelete{
+  width: 25px;
+  height: 25px;
+}
+
+.pay {
+  font-size: 20px;
+  padding: 2px 30px;
+}
+
+.pay:hover {
+  background-color: #551A8B;
+  color: white;
+}
+
+.total {
+  font-size: 20px;
+}
+
+.message {
+  color: black;
+  background-color: #C8A2C8;
+}
+
+.emptyMessage {
+  color: #C8A2C8;
+  text-align: center;
+  margin: 200px 0;
+}
+
+.radio {
+  margin: 10px 0;
+
+  input {
+    margin: 0 10px;
+  }
+}
+
+.textMessage {
+  width: 200px;
+}
+
+@media(max-width: 900px) {
+  .cart {
+    font-size: 16px;
+  }
+  .tableCart {
+    border: none;
+    td {
+      padding: 0 15px;
+      button {
+        border: none;
+        border-radius: 5px;
+        margin: 10px 10px;
+      }
+    }
+  }
+  .textMessage {
+    width: 20px;
+  }
+  .radio{
+    input {
+      margin: 10px 0;
+    }
+  }
+  .displayButton{
+    display: flex;
+    align-items: center;
+  }
+}

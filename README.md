@@ -1,8 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Тестовое задание 
 
-## Getting Started
+Необходимо сделать пробную версию маркетпласа.
+- Получить карточки товаров с FakeAPI https://dummyjson.com/carts отобразить их в произвольной форме используем следующие поля products {id, title, price}.
+- Товары можно добавлять в корзину, а так же можно производить покупку, а именно вся покупка должна сделана на fronte, добавил в корзину => выбрал способ оплаты => оплата => списание средств и вывод успешной покупки.
+- В корзине должно быть 2 валюты $ и Coin обмен 1 к 1.
+- Нужно продумать следующий функционал мнимой покупки товаров, все товары можно покупать за любую валюту, но если Coin не хватает для покупки можно пополнить через $, но а так же можно купить и за $.
 
-First, run the development server:
+stack: Next(12 версия), Axios, React Query, redux-toolkit или zustend, TS всё остальное по желанию.
+
+Будет плюсом если сделать адаптив
+
+
+## Как запустить
+
+Для запуска приложения вам понадобится пакетный менеджер npm
+
+Для установки пакетов используемых в приложении используйте команду:
 
 ```bash
 npm run dev
@@ -12,23 +25,20 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Реализованные функции:
+1) Главная страница с динамической пагинацией
+2) Страница корзины с возможностью оплаты выбранных товаров
+3) Выбор способа оплаты
+4) Конвертация валют
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Используемые технологии
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+В данном проекте использовались следующие технологии:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1) React
+2) Redux-toolkit
+3) NextJS
+4) react-router-dom
+5) scss
+6) axios
+7) react-hook-form
